@@ -28,6 +28,14 @@ public class Player extends Entity {
         screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
         screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
 
+        hitbox = new Rectangle(
+                gamePanel.tileSize / 4 + gamePanel.tileSize / 8,
+                gamePanel.tileSize - gamePanel.tileSize / 2 - gamePanel.tileSize / 16,
+                gamePanel.tileSize / 4,
+                gamePanel.tileSize / 2);
+        // tileSize is 96px, this is the way I made it look decent
+
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -75,23 +83,39 @@ public class Player extends Entity {
 
         if (keyHandler.upPressed) {
             direction = "up";
-            worldY -= speed;
             moving = true;
         }
         else if (keyHandler.downPressed) {
             direction = "down";
-            worldY += speed;
             moving = true;
         }
         else if (keyHandler.leftPressed) {
             direction = "left";
-            worldX -= speed;
             moving = true;
         }
         else if (keyHandler.rightPressed) {
             direction = "right";
-            worldX += speed;
             moving = true;
+        }
+
+        collision = false;
+        gamePanel.collisionChecker.checkCollision(this);
+
+        if (collision == false && moving) {
+            switch (direction) {
+                case "up":
+                    worldY -= speed;
+                    break;
+                case "down":
+                    worldY += speed;
+                    break;
+                case "left":
+                    worldX -= speed;
+                    break;
+                case "right":
+                    worldX += speed;
+                    break;
+            }
         }
 
         if (moving) {
