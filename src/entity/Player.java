@@ -20,10 +20,10 @@ public class Player extends Entity {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
 
-        front = new BufferedImage[3];
-        back  = new BufferedImage[3];
-        left  = new BufferedImage[3];
-        right = new BufferedImage[3];
+        front = new BufferedImage[4];
+        back = new BufferedImage[4];
+        left = new BufferedImage[4];
+        right = new BufferedImage[4];
 
         screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
         screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
@@ -55,24 +55,32 @@ public class Player extends Entity {
                     .getResourceAsStream("/sprites/player/step1-front.png")));
             front[2] = ImageIO.read(Objects.requireNonNull(getClass()
                     .getResourceAsStream("/sprites/player/step2-front.png")));
+            front[3] = ImageIO.read(Objects.requireNonNull(getClass()
+                    .getResourceAsStream("/sprites/player/step3-front.png")));
             back[0] = ImageIO.read(Objects.requireNonNull(getClass()
                     .getResourceAsStream("/sprites/player/idle-back.png")));
             back[1] = ImageIO.read(Objects.requireNonNull(getClass()
                     .getResourceAsStream("/sprites/player/step1-back.png")));
             back[2] = ImageIO.read(Objects.requireNonNull(getClass()
                     .getResourceAsStream("/sprites/player/step2-back.png")));
+            back[3] = ImageIO.read(Objects.requireNonNull(getClass()
+                    .getResourceAsStream("/sprites/player/step3-back.png")));
             left[0] = ImageIO.read(Objects.requireNonNull(getClass()
                     .getResourceAsStream("/sprites/player/idle-left.png")));
             left[1] = ImageIO.read(Objects.requireNonNull(getClass()
                     .getResourceAsStream("/sprites/player/step1-left.png")));
             left[2] = ImageIO.read(Objects.requireNonNull(getClass()
                     .getResourceAsStream("/sprites/player/step2-left.png")));
+            left[3] = ImageIO.read(Objects.requireNonNull(getClass()
+                    .getResourceAsStream("/sprites/player/step3-left.png")));
             right[0] = ImageIO.read(Objects.requireNonNull(getClass()
                     .getResourceAsStream("/sprites/player/idle-right.png")));
             right[1] = ImageIO.read(Objects.requireNonNull(getClass()
                     .getResourceAsStream("/sprites/player/step1-right.png")));
             right[2] = ImageIO.read(Objects.requireNonNull(getClass()
                     .getResourceAsStream("/sprites/player/step2-right.png")));
+            right[3] = ImageIO.read(Objects.requireNonNull(getClass()
+                    .getResourceAsStream("/sprites/player/step3-right.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -121,39 +129,47 @@ public class Player extends Entity {
         if (moving) {
             spriteCounter++;
 
-            if (spriteCounter > 30) {
-                spriteNumber = (spriteNumber + 1) % front.length;
+            if (spriteCounter > 40) {
+                spriteNumber = (spriteNumber + 1) % (front.length + 1);
                 spriteCounter = 0;
             }
         } else {
-            spriteNumber = 1;
+            spriteNumber = 0;
         }
     }
 
     public void draw(Graphics2D graphics2D) {
         BufferedImage image = switch (direction) {
             case "up" -> switch (spriteNumber) {
-                case 0 -> back[1];
-                case 1 -> back[0];
+                case 0 -> back[0];
+                case 1 -> back[1];
                 case 2 -> back[2];
+                case 3 -> back[1];
+                case 4 -> back[3];
                 default -> null;
             };
             case "down" -> switch (spriteNumber) {
-                case 0 -> front[1];
-                case 1 -> front[0];
+                case 0 -> front[0];
+                case 1 -> front[1];
                 case 2 -> front[2];
+                case 3 -> front[1];
+                case 4 -> front[3];
                 default -> null;
             };
             case "left" -> switch (spriteNumber) {
-                case 0 -> left[1];
-                case 1 -> left[0];
+                case 0 -> left[0];
+                case 1 -> left[1];
                 case 2 -> left[2];
+                case 3 -> left[1];
+                case 4 -> left[3];
                 default -> null;
             };
             case "right" -> switch (spriteNumber) {
-                case 0 -> right[1];
-                case 1 -> right[0];
+                case 0 -> right[0];
+                case 1 -> right[1];
                 case 2 -> right[2];
+                case 3 -> right[1];
+                case 4 -> right[3];
                 default -> null;
             };
             default -> null;
