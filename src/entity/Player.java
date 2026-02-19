@@ -43,7 +43,7 @@ public class Player extends Entity {
     public void setDefaultValues() {
         worldX = gamePanel.tileSize * 24;
         worldY = gamePanel.tileSize * 24;
-        speed = 720 / gamePanel.fps;
+        speed = 640 / gamePanel.fps;
         direction = "down";
     }
 
@@ -87,29 +87,18 @@ public class Player extends Entity {
     }
 
     public void update() {
-        boolean moving = false;
+        String currentDir = keyHandler.getCurrentDirection();
 
-        if (keyHandler.upPressed) {
-            direction = "up";
-            moving = true;
-        }
-        else if (keyHandler.downPressed) {
-            direction = "down";
-            moving = true;
-        }
-        else if (keyHandler.leftPressed) {
-            direction = "left";
-            moving = true;
-        }
-        else if (keyHandler.rightPressed) {
-            direction = "right";
-            moving = true;
+        boolean moving = currentDir != null;
+
+        if (moving) {
+            direction = currentDir;
         }
 
         collision = false;
         gamePanel.collisionChecker.checkCollision(this);
 
-        if (collision == false && moving) {
+        if (!collision && moving) {
             switch (direction) {
                 case "up":
                     worldY -= speed;
@@ -142,33 +131,29 @@ public class Player extends Entity {
         BufferedImage image = switch (direction) {
             case "up" -> switch (spriteNumber) {
                 case 0 -> back[0];
-                case 1 -> back[1];
+                case 1, 3 -> back[1];
                 case 2 -> back[2];
-                case 3 -> back[1];
                 case 4 -> back[3];
                 default -> null;
             };
             case "down" -> switch (spriteNumber) {
                 case 0 -> front[0];
-                case 1 -> front[1];
+                case 1, 3 -> front[1];
                 case 2 -> front[2];
-                case 3 -> front[1];
                 case 4 -> front[3];
                 default -> null;
             };
             case "left" -> switch (spriteNumber) {
                 case 0 -> left[0];
-                case 1 -> left[1];
+                case 1, 3 -> left[1];
                 case 2 -> left[2];
-                case 3 -> left[1];
                 case 4 -> left[3];
                 default -> null;
             };
             case "right" -> switch (spriteNumber) {
                 case 0 -> right[0];
-                case 1 -> right[1];
+                case 1, 3 -> right[1];
                 case 2 -> right[2];
-                case 3 -> right[1];
                 case 4 -> right[3];
                 default -> null;
             };
