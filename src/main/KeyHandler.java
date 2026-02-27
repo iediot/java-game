@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class KeyHandler implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean sprintPressed;
 
     private final ArrayList<String> directionStack = new ArrayList<>();
 
@@ -35,6 +36,9 @@ public class KeyHandler implements KeyListener {
                 rightPressed = true;
                 addDirection("right");
                 break;
+            case KeyEvent.VK_SHIFT:
+                sprintPressed = true;
+                break;
         }
     }
 
@@ -59,6 +63,10 @@ public class KeyHandler implements KeyListener {
                 rightPressed = false;
                 directionStack.remove("right");
                 break;
+            case KeyEvent.VK_SHIFT:
+                sprintPressed = false;
+                break;
+
         }
     }
 
@@ -72,5 +80,9 @@ public class KeyHandler implements KeyListener {
             return null;
         }
         return directionStack.getLast();
+    }
+
+    public boolean isSprinting() {
+        return sprintPressed;
     }
 }

@@ -91,6 +91,10 @@ public class Player extends Entity {
 
         boolean moving = currentDir != null;
 
+        double currentSpeed = keyHandler.isSprinting()
+                ? speed * 1.5
+                : speed;
+
         if (moving) {
             direction = currentDir;
         }
@@ -101,16 +105,16 @@ public class Player extends Entity {
         if (!collision && moving) {
             switch (direction) {
                 case "up":
-                    worldY -= speed;
+                    worldY -= (int)currentSpeed;
                     break;
                 case "down":
-                    worldY += speed;
+                    worldY += (int)currentSpeed;
                     break;
                 case "left":
-                    worldX -= speed;
+                    worldX -= (int)currentSpeed;
                     break;
                 case "right":
-                    worldX += speed;
+                    worldX += (int)currentSpeed;
                     break;
             }
         }
@@ -119,7 +123,7 @@ public class Player extends Entity {
             spriteCounter++;
 
             if (spriteCounter > 40) {
-                spriteNumber = (spriteNumber + 1) % (front.length + 1);
+                spriteNumber = (spriteNumber + 1) % front.length;
                 spriteCounter = 0;
             }
         } else {
