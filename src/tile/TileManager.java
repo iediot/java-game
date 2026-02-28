@@ -131,6 +131,21 @@ public class TileManager {
                     .getResourceAsStream("/sprites/tiles/tree.png")));
             tile[20].collision = true;
 
+            tile[21] = new Tile();
+            tile[21].image = ImageIO.read(Objects.requireNonNull(getClass()
+                    .getResourceAsStream("/sprites/tiles/checkers-wall-hor1.png")));
+            tile[21].collision = true;
+
+            tile[22] = new Tile();
+            tile[22].image = ImageIO.read(Objects.requireNonNull(getClass()
+                    .getResourceAsStream("/sprites/tiles/checkers-wall-vert.png")));
+            tile[22].collision = true;
+
+            tile[23] = new Tile();
+            tile[23].image = ImageIO.read(Objects.requireNonNull(getClass()
+                    .getResourceAsStream("/sprites/tiles/checkers-wall-hor2.png")));
+            tile[23].collision = true;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
