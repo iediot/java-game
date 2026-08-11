@@ -1,2 +1,2 @@
-Trying to learn to make a game from scratch, including the assets and everything. <br>
+A game made entirely in Java, with some hand-drawn sprites. <br>
 Following the tutorial by RyiSnow: https://www.youtube.com/@RyiSnow
